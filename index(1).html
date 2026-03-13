@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konstantinos Stamatis | Materials Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   ROOT & RESET
+══════════════════════════════════════ */
+:root {
+  --navy:      #1a2332;
+  --navy2:     #222e3f;
+  --gold:      #c8a951;
+  --gold2:     #dfc070;
+  --gold-dim:  rgba(200,169,81,0.15);
+  --cream:     #f5f0e8;
+  --cream2:    #ede7da;
+  --white:     #ffffff;
+  --text:      #2c2c2c;
+  --muted:     #6b6b6b;
+  --border:    rgba(200,169,81,0.22);
+  --shadow:    0 6px 32px rgba(0,0,0,0.10);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Poppins',sans-serif; color:var(--text); background:var(--white); overflow-x:hidden; }
+img  { max-width:100%; display:block; }
+a    { text-decoration:none; color:inherit; }
+ul   { list-style:none; }
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--navy); }
+::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+
+/* ══════════════════════════════════════
+   PRELOADER
+══════════════════════════════════════ */
+#preloader {
+  position:fixed; inset:0; z-index:9999;
+  background:var(--navy);
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity 0.55s, visibility 0.55s;
+}
+#preloader.hidden { opacity:0; visibility:hidden; }
+.loader-ring {
+  width:48px; height:48px; border-radius:50%;
+  border:3px solid rgba(200,169,81,0.2);
+  border-top-color:var(--gold);
+  animation:spin 0.85s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ══════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════ */
+#navbar {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  background:rgba(26,35,50,0.97);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:0 6%;
+  transition:box-shadow 0.3s;
+}
+.nav-inner {
+  max-width:1100px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  height:68px;
+}
+.nav-logo {
+  font-family:'Playfair Display',serif;
+  font-size:1.45rem; font-weight:700;
+  color:var(--gold); letter-spacing:0.03em;
+}
+.nav-logo span { color:rgba(255,255,255,0.85); font-weight:400; }
+.nav-links { display:flex; gap:2px; }
+.nav-links a {
+  padding:8px 15px; border-radius:3px;
+  font-size:0.75rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;
+  color:rgba(255,255,255,0.55);
+  transition:color 0.2s, background 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color:var(--gold); background:var(--gold-dim); }
+.nav-resume-btn {
+  padding:8px 18px; border-radius:3px;
+  font-size:0.73rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+  background:var(--gold); color:var(--navy);
+  transition:background 0.2s, transform 0.2s;
+  white-space:nowrap;
+}
+.nav-resume-btn:hover { background:var(--gold2); transform:translateY(-1px); }
+.nav-burger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+.nav-burger span { width:22px; height:2px; background:var(--white); display:block; transition:0.3s; }
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#home {
+  min-height:100vh;
+  background:var(--navy);
+  display:flex; align-items:center;
+  position:relative; overflow:hidden;
+  padding:90px 6% 60px;
+}
+/* Subtle grid overlay */
+.hero-grid {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(200,169,81,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,169,81,0.04) 1px, transparent 1px);
+  background-size:55px 55px;
+}
+/* Gold radial glow */
+.hero-glow {
+  position:absolute; pointer-events:none;
+  width:700px; height:700px; border-radius:50%;
+  background:radial-gradient(circle, rgba(200,169,81,0.07) 0%, transparent 70%);
+  top:-180px; right:-140px;
+}
+.hero-inner {
+  max-width:1100px; margin:0 auto; width:100%;
+  display:grid; grid-template-columns:1fr 340px;
+  gap:72px; align-items:center; position:relative; z-index:1;
+}
+.hero-tag {
+  font-size:0.73rem; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--gold); font-weight:500; margin-bottom:20px;
+  display:flex; align-items:center; gap:12px;
+}
+.hero-tag::before { content:''; width:36px; height:1px; background:var(--gold); }
+.hero-title {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(2.8rem,5.5vw,4.8rem);
+  font-weight:700; line-height:1.1;
+  color:var(--white); margin-bottom:10px;
+}
+.hero-title em { font-style:italic; color:var(--gold2); }
+.hero-role {
+  font-size:0.9rem; font-weight:400; letter-spacing:0.06em;
+  color:rgba(255,255,255,0.4); margin-bottom:24px;
+}
+.hero-desc {
+  font-size:0.95rem; line-height:1.85;
+  color:rgba(255,255,255,0.58);
+  max-width:520px; margin-bottom:36px; font-weight:300;
+}
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-gold {
+  background:var(--gold); color:var(--navy);
+  padding:13px 30px; border-radius:3px;
+  font-size:0.78rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+  transition:background 0.2s, transform 0.2s; display:inline-block; border:none; cursor:pointer;
+  font-family:'Poppins',sans-serif;
+}
+.btn-gold:hover { background:var(--gold2); transform:translateY(-2px); }
+.btn-outline {
+  border:1.5px solid rgba(200,169,81,0.45); color:rgba(255,255,255,0.75);
+  padding:13px 30px; border-radius:3px;
+  font-size:0.78rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;
+  transition:border-color 0.2s, color 0.2s, transform 0.2s; display:inline-block;
+}
+.btn-outline:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+/* Hero robotic hand image */
+.hero-img-wrap { position:relative; }
+.hero-img-wrap::before {
+  content:''; position:absolute;
+  top:22px; left:22px; right:-22px; bottom:-22px;
+  border:1px solid rgba(200,169,81,0.2); border-radius:4px;
+}
+.hero-img-wrap img {
+  width:100%; border-radius:4px;
+  position:relative; z-index:1;
+  object-fit:cover; aspect-ratio:4/3;
+}
+/* Scroll hint */
+.hero-scroll {
+  position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:7px;
+  color:rgba(255,255,255,0.25); font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase;
+  animation:scrollBounce 2.2s infinite;
+}
+.hero-scroll svg { width:16px; height:16px; stroke:var(--gold); opacity:0.45; }
+@keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0);} 55%{transform:translateX(-50%) translateY(7px);} }
+
+/* ══════════════════════════════════════
+   SECTION COMMONS
+══════════════════════════════════════ */
+section { padding:96px 6%; }
+.sec-inner { max-width:1100px; margin:0 auto; }
+.sec-header { text-align:center; margin-bottom:64px; }
+.sec-eyebrow {
+  font-size:0.72rem; letter-spacing:0.24em; text-transform:uppercase;
+  color:var(--gold); font-weight:600; margin-bottom:12px;
+  display:flex; align-items:center; justify-content:center; gap:14px;
+}
+.sec-eyebrow::before,.sec-eyebrow::after { content:''; flex:0 0 28px; height:1px; background:var(--gold); }
+.sec-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.85rem,3.2vw,2.55rem);
+  font-weight:700; color:var(--navy); line-height:1.25;
+}
+.sec-title em { font-style:italic; color:var(--gold); }
+.sec-desc { font-size:0.9rem; color:var(--muted); line-height:1.8; max-width:560px; margin:12px auto 0; font-weight:300; }
+
+/* ══════════════════════════════════════
+   ABOUT
+══════════════════════════════════════ */
+#about { background:var(--cream); }
+.about-grid { display:grid; grid-template-columns:280px 1fr; gap:72px; align-items:start; }
+.about-photo-wrap { position:relative; }
+.about-photo-wrap::after {
+  content:''; position:absolute;
+  bottom:-14px; right:-14px;
+  width:75%; height:75%;
+  border:2px solid var(--gold); border-radius:4px; z-index:0;
+}
+.about-photo-wrap img {
+  width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top;
+  border-radius:4px; position:relative; z-index:1;
+}
+.about-photo-placeholder {
+  width:100%; aspect-ratio:3/4; background:var(--navy2);
+  border-radius:4px; display:flex; align-items:center; justify-content:center;
+  font-size:4rem; position:relative; z-index:1; border:1px dashed var(--border);
+}
+.about-tag {
+  font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--gold); font-weight:600; margin-bottom:10px;
+  display:flex; align-items:center; gap:10px;
+}
+.about-tag::before { content:''; width:22px; height:1px; background:var(--gold); }
+.about-name {
+  font-family:'Playfair Display',serif;
+  font-size:2rem; font-weight:700; color:var(--navy); margin-bottom:8px;
+}
+.about-roles { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.about-role-pill {
+  background:var(--navy); color:var(--gold2);
+  padding:4px 13px; border-radius:20px; font-size:0.72rem; letter-spacing:0.05em; font-weight:500;
+}
+.about-bio { font-size:0.9rem; line-height:1.85; color:var(--muted); margin-bottom:16px; font-weight:300; }
+.about-bio strong { color:var(--text); font-weight:600; }
+/* Skill bars */
+.skill-bars { margin-top:20px; display:flex; flex-direction:column; gap:16px; }
+.sb-label { display:flex; justify-content:space-between; font-size:0.8rem; font-weight:500; color:var(--navy); margin-bottom:7px; }
+.sb-track { height:5px; background:rgba(0,0,0,0.09); border-radius:4px; overflow:hidden; }
+.sb-fill { height:100%; background:linear-gradient(90deg, var(--gold), var(--gold2)); border-radius:4px; width:0; transition:width 1.3s cubic-bezier(0.4,0,0.2,1); }
+
+/* ══════════════════════════════════════
+   RESEARCH  (Services-style grid)
+══════════════════════════════════════ */
+#research { background:var(--white); }
+.research-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.rc {
+  background:var(--cream); border-radius:4px;
+  padding:32px; border:1px solid rgba(0,0,0,0.06);
+  transition:transform 0.25s, box-shadow 0.25s;
+  cursor:pointer; position:relative; overflow:hidden;
+}
+.rc::after {
+  content:''; position:absolute; top:0; left:0;
+  width:0; height:3px;
+  transition:width 0.35s ease;
+}
+.rc1::after { background:linear-gradient(90deg,#8b0000,#c0392b); }
+.rc2::after { background:linear-gradient(90deg,#1e6b44,#27ae60); }
+.rc3::after { background:linear-gradient(90deg,#5b2882,#8e44ad); }
+.rc4::after { background:linear-gradient(90deg,#9a7d0a,#d4ac0d); }
+.rc:hover { transform:translateY(-5px); box-shadow:var(--shadow); }
+.rc:hover::after { width:100%; }
+.rc-icon { font-size:2rem; margin-bottom:18px; }
+.rc-period {
+  font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
+  font-weight:600; margin-bottom:10px;
+}
+.rc1 .rc-period { color:#900000; }
+.rc2 .rc-period { color:#1e8449; }
+.rc3 .rc-period { color:#6c3483; }
+.rc4 .rc-period { color:#9a7d0a; }
+.rc h4 {
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem; font-weight:700; color:var(--navy);
+  margin-bottom:10px; line-height:1.35;
+}
+.rc p { font-size:0.87rem; color:var(--muted); line-height:1.75; font-weight:300; }
+.rc-inst { font-size:0.77rem; color:var(--muted); font-style:italic; margin-top:12px; }
+/* expand */
+.rc-detail { display:none; margin-top:20px; padding-top:20px; border-top:1px solid rgba(0,0,0,0.08); }
+.rc-detail.open { display:block; }
+.rc-detail ul { padding:0; }
+.rc-detail ul li {
+  padding:6px 0 6px 18px; position:relative;
+  font-size:0.85rem; color:var(--muted); line-height:1.65; font-weight:300;
+}
+.rc-detail ul li::before { content:'→'; position:absolute; left:0; color:var(--gold); font-size:0.72rem; top:8px; }
+.rc-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.rc-tag { background:var(--navy); color:rgba(255,255,255,0.8); padding:3px 10px; border-radius:3px; font-size:0.7rem; letter-spacing:0.04em; }
+.rc-toggle {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--gold); font-weight:600; background:none; border:none; cursor:pointer;
+  padding:12px 0 0; font-family:'Poppins',sans-serif; transition:gap 0.2s;
+}
+.rc-toggle:hover { gap:10px; }
+
+/* ══════════════════════════════════════
+   ROBOTIC HANDS VISUAL SECTION
+══════════════════════════════════════ */
+#visual {
+  background:var(--navy);
+  padding:0;
+  position:relative;
+  overflow:hidden;
+}
+.visual-inner {
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  min-height:320px;
+}
+.visual-img {
+  position:relative; overflow:hidden;
+}
+.visual-img img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform 0.5s ease; filter:brightness(0.7) saturate(0.85);
+}
+.visual-img:hover img { transform:scale(1.05); filter:brightness(0.85) saturate(1); }
+.visual-img-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(26,35,50,0.85) 0%, transparent 60%);
+  display:flex; align-items:flex-end; padding:22px 20px;
+}
+.visual-img-label {
+  font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;
+  color:rgba(255,255,255,0.75); font-weight:500;
+}
+.visual-center-text {
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  padding:40px 32px; text-align:center;
+  background:var(--gold); color:var(--navy);
+}
+.visual-center-text h3 {
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem; font-weight:700; line-height:1.25; margin-bottom:10px;
+}
+.visual-center-text p { font-size:0.85rem; font-weight:400; line-height:1.7; opacity:0.8; }
+
+/* ══════════════════════════════════════
+   STATS
+══════════════════════════════════════ */
+#stats { background:var(--cream2); padding:64px 6%; }
+.stats-grid {
+  max-width:1100px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
+}
+.stat-box {
+  text-align:center; padding:44px 20px;
+  background:var(--white);
+  border:1px solid rgba(0,0,0,0.06);
+  transition:background 0.2s, transform 0.2s;
+}
+.stat-box:hover { background:var(--navy); }
+.stat-box:hover .stat-num { color:var(--gold); }
+.stat-box:hover .stat-label { color:rgba(255,255,255,0.5); }
+.stat-num {
+  font-family:'Playfair Display',serif;
+  font-size:3rem; font-weight:700; color:var(--navy); line-height:1; margin-bottom:10px;
+  transition:color 0.2s;
+}
+.stat-label {
+  font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--muted); font-weight:500; transition:color 0.2s;
+}
+
+/* ══════════════════════════════════════
+   EDUCATION & EXPERIENCE
+══════════════════════════════════════ */
+#education { background:var(--white); }
+.edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+.edu-col-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.45rem; font-weight:700; color:var(--navy);
+  margin-bottom:30px; padding-bottom:14px;
+  border-bottom:2px solid var(--gold);
+  display:flex; align-items:center; gap:10px;
+}
+.edu-col-title svg { width:20px; height:20px; stroke:var(--gold); fill:none; flex-shrink:0; }
+.edu-timeline { position:relative; padding-left:26px; }
+.edu-timeline::before {
+  content:''; position:absolute; left:6px; top:6px; bottom:0;
+  width:1px; background:linear-gradient(to bottom, var(--gold), rgba(200,169,81,0.1));
+}
+.edu-item { position:relative; margin-bottom:30px; }
+.edu-item::before {
+  content:''; position:absolute; left:-22px; top:5px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--gold); border:2px solid var(--white);
+  box-shadow:0 0 0 3px rgba(200,169,81,0.2);
+}
+.edu-period {
+  display:inline-block;
+  background:var(--navy); color:var(--gold2);
+  padding:3px 10px; border-radius:3px;
+  font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase;
+  font-weight:600; margin-bottom:8px;
+}
+.edu-item h4 {
+  font-family:'Playfair Display',serif;
+  font-size:1.05rem; font-weight:700; color:var(--navy); margin-bottom:5px;
+}
+.edu-item p { font-size:0.84rem; color:var(--muted); line-height:1.7; font-weight:300; }
+.edu-badge {
+  display:inline-block;
+  background:rgba(200,169,81,0.12); border:1px solid rgba(200,169,81,0.3);
+  border-radius:3px; padding:2px 8px;
+  font-size:0.66rem; color:var(--gold); letter-spacing:0.08em; text-transform:uppercase;
+  margin-left:8px; font-weight:600;
+}
+
+/* ══════════════════════════════════════
+   CTA BANNER
+══════════════════════════════════════ */
+#cta {
+  background:linear-gradient(135deg, var(--navy) 0%, #1e2d44 100%);
+  padding:80px 6%; text-align:center; position:relative; overflow:hidden;
+}
+#cta::before {
+  content:''; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(200,169,81,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,169,81,0.04) 1px, transparent 1px);
+  background-size:50px 50px; pointer-events:none;
+}
+.cta-inner { max-width:680px; margin:0 auto; position:relative; z-index:1; }
+.cta-inner h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.7rem,3.5vw,2.6rem); font-weight:700;
+  color:var(--white); margin-bottom:14px; line-height:1.25;
+}
+.cta-inner h2 em { font-style:italic; color:var(--gold2); }
+.cta-inner p { font-size:0.92rem; color:rgba(255,255,255,0.5); margin-bottom:32px; line-height:1.8; font-weight:300; }
+
+/* ══════════════════════════════════════
+   AWARDS
+══════════════════════════════════════ */
+#awards { background:var(--cream); }
+.awards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.award-card {
+  background:var(--white); border-radius:4px;
+  border:1px solid rgba(0,0,0,0.06); padding:26px;
+  border-top:3px solid var(--gold);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.award-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+.award-card.featured {
+  grid-column:1/-1;
+  background:linear-gradient(135deg, rgba(200,169,81,0.07) 0%, var(--white) 55%);
+}
+.award-year {
+  font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--gold); font-weight:600; margin-bottom:8px;
+}
+.award-card h4 {
+  font-family:'Playfair Display',serif;
+  font-size:1.05rem; font-weight:700; color:var(--navy); margin-bottom:8px; line-height:1.35;
+}
+.award-card p { font-size:0.84rem; color:var(--muted); line-height:1.65; font-weight:300; }
+.award-org { font-size:0.76rem; color:var(--gold); font-style:italic; margin-top:10px; font-weight:500; }
+
+/* ══════════════════════════════════════
+   LEADERSHIP
+══════════════════════════════════════ */
+#leadership { background:var(--white); }
+.congress-box {
+  background:var(--navy); border-radius:4px;
+  padding:44px 48px; margin-bottom:48px;
+  border:1px solid var(--border);
+  display:grid; grid-template-columns:70px 1fr; gap:32px; align-items:start;
+}
+.congress-icon {
+  width:70px; height:70px; background:var(--gold); border-radius:3px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.9rem; flex-shrink:0;
+}
+.congress-date { font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; font-weight:600; }
+.congress-box h3 {
+  font-family:'Playfair Display',serif;
+  font-size:1.55rem; font-weight:700; color:var(--white); margin-bottom:12px;
+}
+.congress-box p { font-size:0.88rem; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:10px; font-weight:300; }
+.congress-badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.congress-badge {
+  background:rgba(200,169,81,0.12); border:1px solid rgba(200,169,81,0.3);
+  border-radius:3px; padding:5px 12px;
+  font-size:0.7rem; color:var(--gold2); letter-spacing:0.06em; font-weight:500;
+}
+.leadership-list { display:flex; flex-direction:column; }
+.l-item {
+  display:grid; grid-template-columns:165px 1fr; gap:24px;
+  padding:24px 0; border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.l-item:last-child { border-bottom:none; }
+.l-period { font-size:0.73rem; color:var(--gold); letter-spacing:0.06em; line-height:1.6; padding-top:3px; font-weight:500; }
+.l-role {
+  font-family:'Playfair Display',serif;
+  font-size:1.05rem; font-weight:700; color:var(--navy); margin-bottom:3px;
+}
+.l-org { font-size:0.8rem; color:var(--muted); margin-bottom:8px; font-style:italic; }
+.l-bullets { list-style:none; padding:0; }
+.l-bullets li {
+  padding:4px 0 4px 16px; position:relative;
+  font-size:0.84rem; color:var(--muted); line-height:1.65; font-weight:300;
+}
+.l-bullets li::before { content:'·'; position:absolute; left:4px; color:var(--gold); font-size:1.2rem; line-height:1; top:3px; }
+
+/* ══════════════════════════════════════
+   TECHNICAL SKILLS
+══════════════════════════════════════ */
+#skills { background:var(--cream); }
+.skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.skill-box {
+  background:var(--white); border-radius:4px;
+  padding:28px; border:1px solid rgba(0,0,0,0.06);
+  transition:transform 0.22s, box-shadow 0.22s;
+}
+.skill-box:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+.skill-box-icon { font-size:1.8rem; margin-bottom:14px; }
+.skill-box h4 {
+  font-size:0.78rem; font-weight:600;
+  color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:12px;
+}
+.skill-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.skill-tag {
+  background:var(--navy); color:rgba(255,255,255,0.78);
+  padding:4px 10px; border-radius:3px; font-size:0.7rem; letter-spacing:0.04em;
+}
+.sw-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:22px; }
+.sw-box {
+  background:var(--white); border:1px solid rgba(0,0,0,0.06); border-radius:4px;
+  padding:20px; text-align:center; transition:transform 0.2s;
+}
+.sw-box:hover { transform:translateY(-2px); }
+.sw-name { font-size:0.9rem; font-weight:600; color:var(--navy); margin-bottom:4px; }
+.sw-cat { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); font-weight:500; }
+
+/* ══════════════════════════════════════
+   CONTACT
+══════════════════════════════════════ */
+#contact { background:var(--navy); padding:96px 6%; }
+.contact-wrap { max-width:1100px; margin:0 auto; }
+#contact .sec-title { color:var(--white); }
+#contact .sec-desc { color:rgba(255,255,255,0.4); }
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; margin-top:56px; }
+.contact-info { display:flex; flex-direction:column; gap:26px; }
+.contact-item { display:flex; gap:18px; align-items:flex-start; }
+.contact-item-icon {
+  width:48px; height:48px; background:var(--gold-dim);
+  border:1px solid var(--border); border-radius:3px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.15rem; flex-shrink:0;
+}
+.contact-item-label {
+  font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--gold); font-weight:600; margin-bottom:5px;
+}
+.contact-item-val { font-size:0.93rem; color:rgba(255,255,255,0.72); font-weight:300; }
+.contact-item-val a { color:rgba(255,255,255,0.72); transition:color 0.2s; }
+.contact-item-val a:hover { color:var(--gold); }
+/* Resume download card */
+.resume-card {
+  background:var(--gold-dim); border:1px solid var(--border);
+  border-radius:4px; padding:22px 24px;
+  display:flex; align-items:center; gap:18px;
+  transition:background 0.2s;
+}
+.resume-card:hover { background:rgba(200,169,81,0.22); }
+.resume-card-icon {
+  width:48px; height:48px; background:var(--gold); border-radius:3px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; flex-shrink:0;
+}
+.resume-card-text strong { display:block; font-size:0.85rem; color:var(--white); font-weight:600; margin-bottom:3px; }
+.resume-card-text span { font-size:0.78rem; color:rgba(255,255,255,0.45); }
+.resume-card-arrow { margin-left:auto; color:var(--gold); font-size:1.2rem; }
+/* Form */
+.contact-form { display:flex; flex-direction:column; gap:14px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.contact-form input, .contact-form textarea {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(200,169,81,0.2); border-radius:3px;
+  color:rgba(255,255,255,0.8); padding:14px 16px;
+  font-family:'Poppins',sans-serif; font-size:0.88rem;
+  transition:border-color 0.2s; outline:none; width:100%; font-weight:300;
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder { color:rgba(255,255,255,0.22); }
+.contact-form input:focus, .contact-form textarea:focus { border-color:var(--gold); }
+.contact-form textarea { resize:vertical; min-height:130px; }
+.contact-form .btn-gold { width:100%; margin-top:4px; padding:14px; }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  background:#0e1620;
+  border-top:1px solid rgba(200,169,81,0.1);
+  padding:24px 6%;
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+}
+.footer-logo {
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem; font-weight:700; color:var(--gold); letter-spacing:0.03em;
+}
+footer p { font-size:0.75rem; color:rgba(255,255,255,0.25); }
+.footer-links { display:flex; gap:20px; }
+.footer-links a {
+  font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:rgba(255,255,255,0.3); transition:color 0.2s; font-weight:500;
+}
+.footer-links a:hover { color:var(--gold); }
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+.reveal       { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal-left  { opacity:0; transform:translateX(-28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal-right { opacity:0; transform:translateX(28px);  transition:opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible, .reveal-left.visible, .reveal-right.visible { opacity:1; transform:none; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:960px){
+  .hero-inner        { grid-template-columns:1fr; gap:48px; }
+  .hero-img-wrap     { display:none; }
+  .about-grid        { grid-template-columns:1fr; }
+  .about-photo-wrap  { max-width:260px; }
+  .research-grid     { grid-template-columns:1fr; }
+  .stats-grid        { grid-template-columns:repeat(2,1fr); }
+  .edu-grid          { grid-template-columns:1fr; }
+  .awards-grid       { grid-template-columns:1fr 1fr; }
+  .contact-grid      { grid-template-columns:1fr; }
+  .skills-grid       { grid-template-columns:1fr 1fr; }
+  .sw-row            { grid-template-columns:repeat(2,1fr); }
+  .visual-inner      { grid-template-columns:1fr 1fr; }
+  .visual-inner > :nth-child(2) { display:none; }
+}
+@media(max-width:700px){
+  section            { padding:72px 5%; }
+  .nav-links         {
+    display:none; flex-direction:column; gap:0;
+    position:fixed; top:68px; left:0; right:0;
+    background:rgba(26,35,50,0.99);
+    border-bottom:1px solid var(--border); padding:10px 0;
+  }
+  .nav-links.open    { display:flex; }
+  .nav-links a       { padding:13px 24px; display:block; }
+  .nav-burger        { display:flex; }
+  .nav-resume-btn    { display:none; }
+  .form-row          { grid-template-columns:1fr; }
+  .awards-grid       { grid-template-columns:1fr; }
+  .skills-grid       { grid-template-columns:1fr; }
+  .sw-row            { grid-template-columns:1fr 1fr; }
+  .l-item            { grid-template-columns:1fr; }
+  .congress-box      { grid-template-columns:1fr; }
+  footer             { flex-direction:column; text-align:center; }
+  .visual-inner      { grid-template-columns:1fr; min-height:auto; }
+  .visual-center-text { padding:32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader"><div class="loader-ring"></div></div>
+
+<!-- ══════════════════════ NAVBAR ══════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">K.<span> Stamatis</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <!-- Resume download button in nav -->
+    <a href="Resume_Konstantinos_Stamatis.pdf" download class="nav-resume-btn">⬇ Resume</a>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Hello &amp; Welcome</div>
+      <h1 class="hero-title">I Am<br><em>Konstantinos<br>Stamatis</em></h1>
+      <p class="hero-role">Materials Scientist &nbsp;·&nbsp; PhD Candidate &nbsp;·&nbsp; Researcher</p>
+      <p class="hero-desc">
+        Five years of research across Greece and the United States — developing smart polymeric actuators for soft robotic hands, anticancer metal complexes, advanced magnets, and OLED materials. Bridging fundamental science with real-world innovation.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-gold">Get In Touch</a>
+        <a href="Resume_Konstantinos_Stamatis.pdf" download class="btn-outline">⬇ Download CV</a>
+        <a href="#research" class="btn-outline">View Research</a>
+      </div>
+    </div>
+    <!-- Robotic hand hero image -->
+    <div class="hero-img-wrap reveal-right">
+      <img
+        src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=680&q=80&fit=crop"
+        alt="Robotic hand – soft actuator research"
+        onerror="this.src='https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=680&q=80&fit=crop'"
+      >
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" stroke-width="1.5" fill="none"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Scroll
+  </div>
+</section>
+
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<section id="about">
+  <div class="sec-inner">
+    <div class="sec-header reveal">
+      <div class="sec-eyebrow">About Me</div>
+      <h2 class="sec-title">Materials Scientist &amp; <em>Leader</em></h2>
+      <p class="sec-desc">A passion for science, a drive for excellence, and five years of research experience across continents.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo-wrap reveal-left">
+        <img
+          src="Konstantinos_Stamatis.jpg"
+          alt="Konstantinos Stamatis"
+          onerror="this.outerHTML='<div class=\'about-photo-placeholder\'>👤</div>'"
+        >
+      </div>
+      <div class="reveal-right">
+        <div class="about-tag">Professional Profile</div>
+        <div class="about-name">Hello! I'm Konstantinos.</div>
+        <div class="about-roles">
+          <span class="about-role-pill">PhD Candidate · Texas A&amp;M</span>
+          <span class="about-role-pill">SPE President</span>
+          <span class="about-role-pill">BS Valedictorian</span>
+          <span class="about-role-pill">#1 Nationally in Chemistry</span>
+        </div>
+        <p class="about-bio">
+          I am a <strong>materials scientist with over five years of research experience</strong> in the United States and Greece, driven by a passion for translating fundamental science into real-world impact. My primary focus is developing <strong>polymeric actuators for soft robotic hands and artificial muscles</strong>, using Liquid Crystal Elastomers with Dynamic Covalent Bonds.
+        </p>
+        <p class="about-bio">
+          Beyond the lab, I am a dedicated <strong>leader, mentor, and public advocate</strong> — founding student organizations, teaching 80+ undergraduates, and representing the materials science community on Capitol Hill in Washington, D.C.
+        </p>
+        <div class="skill-bars">
+          <div>
+            <div class="sb-label"><span>Polymer Science &amp; LCEs</span><span>92%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-w="92"></div></div>
+          </div>
+          <div>
+            <div class="sb-label"><span>Inorganic / Coordination Chemistry</span><span>88%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-w="88"></div></div>
+          </div>
+          <div>
+            <div class="sb-label"><span>Material Characterization (DMA, SEM, DSC…)</span><span>95%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-w="95"></div></div>
+          </div>
+          <div>
+            <div class="sb-label"><span>Research &amp; Project Leadership</span><span>90%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-w="90"></div></div>
+          </div>
+          <div>
+            <div class="sb-label"><span>Scientific Communication</span><span>85%</span></div>
+            <div class="sb-track"><div class="sb-fill" data-w="85"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ RESEARCH ══════════════════════ -->
+<section id="research">
+  <div class="sec-inner">
+    <div class="sec-header reveal">
+      <div class="sec-eyebrow">Research Experience</div>
+      <h2 class="sec-title">Five Years Across <em>Four Disciplines</em></h2>
+      <p class="sec-desc">Click any card to expand full research details, techniques, and contributions.</p>
+    </div>
+    <div class="research-grid">
+
+      <div class="rc rc1 reveal" onclick="toggleRC(this)">
+        <div class="rc-icon">🤖</div>
+        <div class="rc-period">Aug 2023 – Present · Texas, USA</div>
+        <h4>Polymeric Actuators for Soft Robotics &amp; Artificial Muscles</h4>
+        <p>Developing recyclable Liquid Crystal Elastomers with Dynamic Covalent Bonds — smart polymers that mimic muscle behavior, enabling next-generation soft robotic hands and actuation systems.</p>
+        <div class="rc-inst">Texas A&amp;M University · Dr. Taylor Ware &amp; Dr. Svetlana Sukhishvili · MSE &amp; Biomedical Engineering</div>
+        <button class="rc-toggle" onclick="event.stopPropagation();" onmousedown="toggleRC(this.closest('.rc'))">Read More →</button>
+        <div class="rc-detail">
+          <ul>
+            <li>Lead cross-laboratory collaboration developing <strong>recyclable polymeric actuators</strong> for sustainable soft robotic hands</li>
+            <li>Comprehensive mechanical characterization: DMA, UTM, DSC, TGA, POM, SEM</li>
+            <li>Design &amp; manage project timelines targeting <strong>commercialization</strong> of advanced actuator materials</li>
+            <li>Supervise and mentor undergraduate research students</li>
+          </ul>
+          <div class="rc-tags">
+            <span class="rc-tag">Liquid Crystal Elastomers</span>
+            <span class="rc-tag">Dynamic Covalent Chemistry</span>
+            <span class="rc-tag">Soft Robotics</span>
+            <span class="rc-tag">Artificial Muscles</span>
+            <span class="rc-tag">DMA</span><span class="rc-tag">DSC</span>
+            <span class="rc-tag">POM</span><span class="rc-tag">SEM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc rc2 reveal" onclick="toggleRC(this)">
+        <div class="rc-icon">💊</div>
+        <div class="rc-period">Nov 2021 – Aug 2023 · Athens, Greece</div>
+        <h4>Metal Complexes for Anticancer &amp; Antimicrobial Drugs</h4>
+        <p>Led a year-long, three-laboratory MS thesis project synthesizing four novel zinc complexes with in vitro activities surpassing commercially available drugs.</p>
+        <div class="rc-inst">NCSR Demokritos · Institute of Nanoscience &amp; Nanotechnology (MS Thesis)</div>
+        <button class="rc-toggle" onclick="event.stopPropagation();">Read More →</button>
+        <div class="rc-detail">
+          <ul>
+            <li>Led project across <strong>3 laboratories</strong> with cross-functional team coordination</li>
+            <li>Synthesized &amp; characterized <strong>4 novel zinc complexes</strong> via spectroscopy and X-ray crystallography</li>
+            <li>Demonstrated anticancer &amp; antimicrobial activities superior to commercial drugs in vitro</li>
+            <li>Invited speaker — <strong>Joint CTMNM/NAGC Conference</strong>, Spetses, Greece, May 2023</li>
+          </ul>
+          <div class="rc-tags">
+            <span class="rc-tag">Inorganic Synthesis</span><span class="rc-tag">X-Ray Crystallography</span>
+            <span class="rc-tag">IR</span><span class="rc-tag">UV/Vis</span>
+            <span class="rc-tag">Fluorescence</span><span class="rc-tag">In Vitro Bioassays</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc rc3 reveal" onclick="toggleRC(this)">
+        <div class="rc-icon">🧲</div>
+        <div class="rc-period">Sept – Oct 2021 · Athens, Greece</div>
+        <h4>Advanced Permanent Magnet Materials</h4>
+        <p>Investigated synthesis and magnetic characterization of cutting-edge permanent magnet materials, presenting results at two international conferences in 2022.</p>
+        <div class="rc-inst">NCSR Demokritos · Dr. Margarit Gjoka Laboratory</div>
+        <button class="rc-toggle" onclick="event.stopPropagation();">Read More →</button>
+        <div class="rc-detail">
+          <ul>
+            <li>Synthesis &amp; structural/magnetic characterization of novel permanent magnet materials</li>
+            <li>Presented at <strong>15th Joint MMM-INTERMAG Conference</strong> — New Orleans, USA, Jan 2022</li>
+            <li>Presented at <strong>1st Conference of NIP</strong> — Tirana, Albania, Feb 2022</li>
+          </ul>
+          <div class="rc-tags">
+            <span class="rc-tag">VSM</span><span class="rc-tag">Powder XRD</span>
+            <span class="rc-tag">SEM</span><span class="rc-tag">Magnetic Characterization</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc rc4 reveal" onclick="toggleRC(this)">
+        <div class="rc-icon">💡</div>
+        <div class="rc-period">Sept 2017 – Jul 2021 · Thessaloniki, Greece</div>
+        <h4>Copper Complexes for OLED Applications</h4>
+        <p>Competitively selected to design novel copper complexes for organic light-emitting diodes — completed a full dissertation in six months, graduating as Valedictorian.</p>
+        <div class="rc-inst">Aristotle University of Thessaloniki · Dr. Angaridis Panagiotis Laboratory (BS Thesis)</div>
+        <button class="rc-toggle" onclick="event.stopPropagation();">Read More →</button>
+        <div class="rc-detail">
+          <ul>
+            <li>Competitively selected from chemistry peers for thesis-level research</li>
+            <li>Designed copper complexes with targeted photophysical properties for OLED emitters</li>
+            <li>Completed full dissertation <strong>within six months</strong></li>
+            <li>Graduated as <strong>Valedictorian</strong> — top of the Chemistry Department</li>
+          </ul>
+          <div class="rc-tags">
+            <span class="rc-tag">Coordination Chemistry</span><span class="rc-tag">H-NMR</span>
+            <span class="rc-tag">Fluorescence</span><span class="rc-tag">UV/Vis</span>
+            <span class="rc-tag">IR</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ ROBOTIC HANDS VISUAL STRIP ══════════════════════ -->
+<div id="visual">
+  <div class="visual-inner">
+    <div class="visual-img">
+      <img
+        src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80&fit=crop&crop=center"
+        alt="Robotic hand soft actuator"
+        loading="lazy"
+      >
+      <div class="visual-img-overlay">
+        <span class="visual-img-label">Soft Robotics</span>
+      </div>
+    </div>
+    <div class="visual-center-text">
+      <h3>Soft Actuators for Robotic Hands</h3>
+      <p>Developing the next generation of polymeric muscles — materials that move like biology, built by chemistry.</p>
+    </div>
+    <div class="visual-img">
+      <img
+        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80&fit=crop&crop=center"
+        alt="Materials science laboratory research"
+        loading="lazy"
+      >
+      <div class="visual-img-overlay">
+        <span class="visual-img-label">Materials Engineering</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ STATS ══════════════════════ -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-box reveal">
+      <div class="stat-num" data-target="5">0</div>
+      <div class="stat-label">Years of Research</div>
+    </div>
+    <div class="stat-box reveal">
+      <div class="stat-num" data-target="4">0</div>
+      <div class="stat-label">Research Disciplines</div>
+    </div>
+    <div class="stat-box reveal">
+      <div class="stat-num" data-target="7">0</div>
+      <div class="stat-label">Awards &amp; Grants</div>
+    </div>
+    <div class="stat-box reveal">
+      <div class="stat-num" data-target="1">0</div>
+      <div class="stat-label">National #1 Ranking</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ EDUCATION & EXPERIENCE ══════════════════════ -->
+<section id="education">
+  <div class="sec-inner">
+    <div class="sec-header reveal">
+      <div class="sec-eyebrow">Education &amp; Experience</div>
+      <h2 class="sec-title">Academic <em>Journey</em></h2>
+      <p class="sec-desc">From ranking #1 nationally in Greece to conducting PhD research at Texas A&amp;M University.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="reveal-left">
+        <div class="edu-col-title">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422A12 12 0 0112 21.5a12 12 0 01-6.16-10.922L12 14z"/></svg>
+          Education
+        </div>
+        <div class="edu-timeline">
+          <div class="edu-item">
+            <div class="edu-period">2023 – Dec 2027 (Expected)</div>
+            <h4>PhD — Materials Science &amp; Engineering</h4>
+            <p>Texas A&amp;M University · College Station, Texas, USA<br>Focus: Polymeric Actuators for Soft Robotic Hands using Liquid Crystal Elastomers with Dynamic Covalent Bonds</p>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">2021 – 2023</div>
+            <h4>MS — Nanoscience &amp; Nanotechnology</h4>
+            <p>NCSR Demokritos · Athens, Greece<br>Thesis: Development of Metal Complexes for Anticancer Drug Applications</p>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">2017 – 2021</div>
+            <h4>BS — Chemistry <span class="edu-badge">Valedictorian</span></h4>
+            <p>Aristotle University of Thessaloniki · Greece<br>Major in Inorganic Chemistry · Dissertation on copper complexes for OLED applications — completed in 6 months</p>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">September 2017</div>
+            <h4>🥇 Ranked #1 Nationally — Chemistry Entrance Exams</h4>
+            <p>Highest score in Chemistry across all of Greece — <strong>18,732 / 20,000</strong> — top entry mark among 144 students admitted to AUTH Chemistry.</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="edu-col-title">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          Leadership
+        </div>
+        <div class="edu-timeline">
+          <div class="edu-item">
+            <div class="edu-period">Summer 2025 – Present</div>
+            <h4>President — Society of Plastics Engineers</h4>
+            <p>Texas A&amp;M University · Leading global professional organization; coordinating industry networking events.</p>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">Spring &amp; Fall 2025</div>
+            <h4>Graduate Teaching Assistant — Polymer Lab</h4>
+            <p>Baker Hughes Materials Lab, Texas A&amp;M · Teaching 80 undergraduates, 28 lectures, managing $200K in equipment.</p>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">Fall 2023 – Present</div>
+            <h4>Founder &amp; President — Hellenic Student Association</h4>
+            <p>Texas A&amp;M University · Founded from scratch; collaborated with Halliburton to expand A&amp;M recruitment in Greece &amp; Cyprus.</p>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">April 2025</div>
+            <h4>🏛️ Capitol Hill Advocate — Congressional Visits Day</h4>
+            <p>Washington, D.C. · Met with Texas Senators &amp; Representatives to advocate for STEM research funding. Awarded $320 travel grant.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CTA BANNER ══════════════════════ -->
+<div id="cta">
+  <div class="cta-inner reveal">
+    <h2>For Research Collaborations<br>&amp; <em>Opportunities</em></h2>
+    <p>Open to industry roles, academic collaborations, and conversations about the future of materials science.</p>
+    <a href="#contact" class="btn-gold">Contact Me</a>
+  </div>
+</div>
+
+<!-- ══════════════════════ AWARDS ══════════════════════ -->
+<section id="awards">
+  <div class="sec-inner">
+    <div class="sec-header reveal">
+      <div class="sec-eyebrow">Scholarships &amp; Awards</div>
+      <h2 class="sec-title">Recognized for <em>Excellence</em></h2>
+      <p class="sec-desc">Awards and scholarships received across Greece and the United States.</p>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card featured reveal">
+        <div class="award-year">🥇 September 2017</div>
+        <h4>Ranked #1 Nationally — Greek University Entrance Examinations in Chemistry</h4>
+        <p>Achieved the highest score in Chemistry in all of Greece — <strong>18,732 out of 20,000</strong> — the top entry mark among 144 students admitted to the Chemistry Department at Aristotle University of Thessaloniki.</p>
+        <p style="margin-top:10px;font-weight:300;line-height:1.7;">Coming from a middle-class family in a small town of 10,000 people and attending a public school with limited opportunities, ranking #1 nationally was a defining milestone — a reward for years of hard work and a reflection of an unwavering passion for science and a relentless pursuit of excellence.</p>
+        <div class="award-org">Aristotle University of Thessaloniki (AUTH)</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-year">February 2026</div>
+        <h4>SPE International Polyolefins Conference Scholarship</h4>
+        <p>Competitive graduate-level scholarship for outstanding research excellence at Texas A&amp;M.</p>
+        <div class="award-org">Society of Plastics Engineers</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-year">August 2025</div>
+        <h4>Presentation Award — Texas Soft Matter, Rice University</h4>
+        <p>Selected from 43 student participants for excellence in research presentation.</p>
+        <div class="award-org">Texas Soft Matter Meeting, Rice University</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-year">July 2025</div>
+        <h4>Gerondelis Foundation Grant</h4>
+        <p>Scholarship supporting outstanding Greek nationals pursuing graduate studies in U.S. programs.</p>
+        <div class="award-org">Gerondelis Foundation</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-year">April 2025</div>
+        <h4>Henry Kahn Memorial Scholarship</h4>
+        <p>For academic and research excellence among graduate and undergraduate students across Texas.</p>
+        <div class="award-org">SPE South Texas Section</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-year">April 2025</div>
+        <h4>Congressional Visits Day — $320 Travel Grant</h4>
+        <p>Representing Texas A&amp;M on Capitol Hill, advocating for STEM research funding with Texas legislators.</p>
+        <div class="award-org">Material Advantage · Washington, D.C.</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-year">November 2024</div>
+        <h4>1st Place — Aggies Invent Competition</h4>
+        <p>First Place for designing the most innovative prototype addressing catheter-associated UTIs.</p>
+        <div class="award-org">Texas A&amp;M Entrepreneurship Dept.</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-year">2021</div>
+        <h4>Valedictorian — Chemistry Department</h4>
+        <p>Graduated top of class in the Chemistry Department, Aristotle University of Thessaloniki, Greece.</p>
+        <div class="award-org">Aristotle University of Thessaloniki</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ LEADERSHIP ══════════════════════ -->
+<section id="leadership">
+  <div class="sec-inner">
+    <div class="sec-header reveal">
+      <div class="sec-eyebrow">Leadership &amp; Advocacy</div>
+      <h2 class="sec-title">Building Communities, <em>Driving Change</em></h2>
+      <p class="sec-desc">From founding student organizations to advocating for science on Capitol Hill.</p>
+    </div>
+    <div class="congress-box reveal">
+      <div class="congress-icon">🏛️</div>
+      <div>
+        <div class="congress-date">April 2025 · Washington, D.C.</div>
+        <h3>Material Advantage Congressional Visits Day</h3>
+        <p>Representing Texas A&amp;M University, I met directly with <strong style="color:var(--gold2)">Texas Senators and Representatives</strong> on Capitol Hill to advocate for increased federal investment in the physical sciences and engineering.</p>
+        <p>I emphasized the critical role materials research plays in national competitiveness and long-term scientific progress — carrying the message that <strong style="color:var(--gold2)">sustained funding for fundamental research is essential for America's technological future.</strong></p>
+        <p>Awarded a <strong style="color:var(--gold2)">$320 travel grant</strong> to support participation in this prestigious annual advocacy event.</p>
+        <div class="congress-badges">
+          <span class="congress-badge">🏛️ Capitol Hill</span>
+          <span class="congress-badge">🗳️ Senate &amp; House Meetings</span>
+          <span class="congress-badge">💰 $320 Travel Grant</span>
+          <span class="congress-badge">🎓 Texas A&amp;M Representative</span>
+          <span class="congress-badge">🔬 STEM Policy Advocacy</span>
+        </div>
+      </div>
+    </div>
+    <div class="leadership-list">
+      <div class="l-item reveal">
+        <div class="l-period">Summer 2025 – Present</div>
+        <div>
+          <div class="l-role">President — Society of Plastics Engineers</div>
+          <div class="l-org">Texas A&amp;M University</div>
+          <ul class="l-bullets">
+            <li>Leading this global professional plastics science organization chapter</li>
+            <li>Planning networking events connecting students with industry professionals</li>
+          </ul>
+        </div>
+      </div>
+      <div class="l-item reveal">
+        <div class="l-period">Spring &amp; Fall 2025</div>
+        <div>
+          <div class="l-role">Graduate Teaching Assistant — Polymer Lab</div>
+          <div class="l-org">Texas A&amp;M · Baker Hughes Materials Lab</div>
+          <ul class="l-bullets">
+            <li>Teaching polymer lab to 80 undergraduates; delivering 28 lectures per semester</li>
+            <li>Supervising characterization protocols; managing $200K in lab equipment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="l-item reveal">
+        <div class="l-period">Fall 2023 – Summer 2025</div>
+        <div>
+          <div class="l-role">Vice President — MS&amp;E Graduate Student Advisory Council</div>
+          <div class="l-org">Texas A&amp;M University</div>
+          <ul class="l-bullets">
+            <li>Enhanced student life and academic resources via town halls and advocacy</li>
+          </ul>
+        </div>
+      </div>
+      <div class="l-item reveal">
+        <div class="l-period">Fall 2023 – Present</div>
+        <div>
+          <div class="l-role">Founder &amp; President — Hellenic Student Association</div>
+          <div class="l-org">Texas A&amp;M University</div>
+          <ul class="l-bullets">
+            <li>Founded and secured official university recognition from scratch</li>
+            <li>Collaborated with Halliburton Engineering to expand recruitment in Greece &amp; Cyprus</li>
+          </ul>
+        </div>
+      </div>
+      <div class="l-item reveal">
+        <div class="l-period">October 2018</div>
+        <div>
+          <div class="l-role">Greek Representative — Erasmus+ European Youth Exchange</div>
+          <div class="l-org">Berlin, Germany · United Societies of the Balkans (NGO)</div>
+          <ul class="l-bullets">
+            <li>Fully funded representative collaborating with delegates from 5 European countries</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SKILLS ══════════════════════ -->
+<section id="skills">
+  <div class="sec-inner">
+    <div class="sec-header reveal">
+      <div class="sec-eyebrow">Technical Expertise</div>
+      <h2 class="sec-title">Built in the Lab, <em>Proven in Research</em></h2>
+      <p class="sec-desc">A comprehensive toolkit built across five years of hands-on research in polymer science, nanoscience, and materials engineering.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-box reveal">
+        <div class="skill-box-icon">🔬</div>
+        <h4>Thermal &amp; Mechanical</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">DMA</span><span class="skill-tag">DSC</span>
+          <span class="skill-tag">TGA</span><span class="skill-tag">UTM</span><span class="skill-tag">GPC</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
+        <div class="skill-box-icon">🔭</div>
+        <h4>Structural &amp; Imaging</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">SEM</span><span class="skill-tag">POM</span>
+          <span class="skill-tag">Powder XRD</span>
+          <span class="skill-tag">X-Ray Crystallography</span>
+          <span class="skill-tag">VSM</span>
+        </div>
+      </div>
+      <div class="skill-box reveal">
+        <div class="skill-box-icon">📡</div>
+        <h4>Spectroscopy</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">IR</span><span class="skill-tag">H-NMR</span>
+          <span class="skill-tag">UV/Vis</span><span class="skill-tag">Fluorescence</span>
+          <span class="skill-tag">Circular Dichroism</span>
+        </div>
+      </div>
+    </div>
+    <div class="sw-row">
+      <div class="sw-box reveal"><div class="sw-name">SolidWorks</div><div class="sw-cat">CAD Design</div></div>
+      <div class="sw-box reveal"><div class="sw-name">JMP</div><div class="sw-cat">Statistical Analysis</div></div>
+      <div class="sw-box reveal"><div class="sw-name">Origin</div><div class="sw-cat">Data Analysis</div></div>
+      <div class="sw-box reveal"><div class="sw-name">Microsoft Office</div><div class="sw-cat">Productivity</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CONTACT ══════════════════════ -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="sec-header reveal">
+      <div class="sec-eyebrow" style="color:var(--gold);">Get In Touch</div>
+      <h2 class="sec-title">Let's <em>Connect</em></h2>
+      <p class="sec-desc" style="color:rgba(255,255,255,0.4);">Open to research collaborations, industry opportunities, and conversations about materials science.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Call Me On</div>
+            <div class="contact-item-val">+1 (979) 344-3956</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div>
+            <div class="contact-item-label">Email Me At</div>
+            <div class="contact-item-val"><a href="mailto:kstam@tamu.edu">kstam@tamu.edu</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💼</div>
+          <div>
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-val"><a href="https://www.linkedin.com/in/konstantinestamatis/" target="_blank" rel="noopener">linkedin.com/in/konstantinestamatis</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-val">College Station, Texas, USA<br><span style="font-size:0.8rem;color:rgba(255,255,255,0.35);">Willing to Relocate</span></div>
+          </div>
+        </div>
+        <!-- Resume Download Card -->
+        <a href="Resume_Konstantinos_Stamatis.pdf" download class="resume-card">
+          <div class="resume-card-icon">📄</div>
+          <div class="resume-card-text">
+            <strong>Download Resume</strong>
+            <span>PDF · Konstantinos Stamatis</span>
+          </div>
+          <div class="resume-card-arrow">↓</div>
+        </a>
+      </div>
+      <div class="reveal-right">
+        <div class="contact-form">
+          <div class="form-row">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Email Address">
+          </div>
+          <input type="text" placeholder="Subject">
+          <textarea placeholder="Your Message"></textarea>
+          <button class="btn-gold" onclick="handleSubmit(this)">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="footer-logo">K. Stamatis</div>
+  <p>© 2025 Konstantinos Stamatis · Materials Science &amp; Engineering · Texas A&amp;M</p>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="Resume_Konstantinos_Stamatis.pdf" download>Resume</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Preloader
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 350);
+});
+
+// Mobile nav
+document.getElementById('burger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(a =>
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'))
+);
+
+// Active nav on scroll
+const allSections = document.querySelectorAll('section, #stats, #cta, #visual');
+const navAnchors = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) cur = s.id; });
+  navAnchors.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + cur) a.classList.add('active');
+  });
+});
+
+// Scroll reveal
+const revealAll = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+revealAll.forEach(el => revealObs.observe(el));
+
+// Skill bars
+const aboutSection = document.querySelector('#about');
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.sb-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+if (aboutSection) barObs.observe(aboutSection);
+
+// Stat counters
+const statsEl = document.querySelector('#stats');
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.stat-num').forEach(el => {
+        const target = +el.dataset.target;
+        let cur = 0;
+        const step = Math.ceil(target / 40);
+        const timer = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          el.textContent = cur + '+';
+          if (cur >= target) clearInterval(timer);
+        }, 40);
+      });
+      statObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+if (statsEl) statObs.observe(statsEl);
+
+// Research card expand/collapse
+function toggleRC(card) {
+  const detail = card.querySelector('.rc-detail');
+  const btn    = card.querySelector('.rc-toggle');
+  if (!detail) return;
+  const isOpen = detail.classList.contains('open');
+  document.querySelectorAll('.rc-detail.open').forEach(d => {
+    d.classList.remove('open');
+    const b = d.closest('.rc')?.querySelector('.rc-toggle');
+    if (b) b.textContent = 'Read More →';
+  });
+  if (!isOpen) { detail.classList.add('open'); if (btn) btn.textContent = 'Collapse ↑'; }
+}
+
+// Contact form
+function handleSubmit(btn) {
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = '#27ae60';
+  setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = ''; }, 3000);
+}
+</script>
+</body>
+</html>
