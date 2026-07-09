@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Editor (Local)</title>
+<link rel="stylesheet" href="vendor/grapesjs/grapes.min.css">
+<style>
+  html,body{margin:0;height:100%;font-family:Arial,sans-serif;}
+  #topbar{height:52px;background:#14171f;color:#fff;display:flex;align-items:center;gap:14px;padding:0 16px;font-size:14px;}
+  #topbar select,#topbar button{font-size:13px;padding:7px 12px;border-radius:6px;border:1px solid #444;background:#1c2a3a;color:#fff;cursor:pointer;}
+  #topbar button.primary{background:#2563eb;border-color:#2563eb;font-weight:700;}
+  #topbar button.primary:hover{background:#1d4ed8;}
+  #topbar #editorStatus{margin-left:auto;font-size:13px;opacity:.85;}
+  #gjs{height:calc(100% - 52px);}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <strong>Visual Editor</strong>
+  <select id="pageSelect">
+    <option value="index.html">Home</option>
+    <option value="about.html">About</option>
+    <option value="hand-erc.html">HAND ERC</option>
+    <option value="research.html">Research</option>
+    <option value="education.html">Education</option>
+    <option value="motivation.html">Motivation</option>
+    <option value="leadership.html">Leadership</option>
+    <option value="industry.html">Industry</option>
+    <option value="awards.html">Awards</option>
+    <option value="skills.html">Skills</option>
+    <option value="contact.html">Contact</option>
+  </select>
+  <button id="loadBtn">Load Page</button>
+  <button id="saveBtn" class="primary">Save Changes</button>
+  <span id="editorStatus"></span>
+</div>
+<div id="gjs"></div>
+
+<script src="vendor/grapesjs/grapes.min.js"></script>
+<script>
+var editor = grapesjs.init({
+  container: '#gjs',
+  height: '100%',
+  fromElement: false,
+  storageManager: false,
+  components: '<div style="padding:40px;font-family:sans-serif;color:#888;">Choose a page above and click "Load Page" to begin.</div>',
+  deviceManager: {
+    devices: [
+      { name: 'Desktop', width: '' },
+      { name: 'Tablet', width: '768px', widthMedia: '992px' },
+      { name: 'Mobile', width: '375px', widthMedia: '575px' }
+    ]
+  }
+});
+
+// Inject our real stylesheet directly into the canvas document ourselves,
+// instead of using the `canvas.styles` init option (that option made the
+// editor hang indefinitely in this setup, so we bypass it entirely here).
+editor.on('load', function () {
+  injectCanvasStyles();
+});
+
+function injectCanvasStyles() {
+  var doc = editor.Canvas.getDocument();
+  if (!doc || !doc.head) return;
+  if (doc.getElementById('injected-site-styles')) return;
+  var link = doc.createElement('link');
+  link.id = 'injected-site-styles';
+  link.rel = 'stylesheet';
+  link.href = location.origin + '/style.css';
+  doc.head.appendChild(link);
+  // Note: Google Fonts is intentionally NOT injected here — that external
+  // request appears to hang in this environment and freezes the whole
+  // canvas. The live site still loads the real fonts fine; this editor
+  // preview will just show the fallback font instead.
+}
+
+var originalHead = '';
+var currentFile = '';
+
+function setStatus(msg) {
+  document.getElementById('editorStatus').textContent = msg;
+}
+
+function loadPage(file) {
+  setStatus('Loading ' + file + '...');
+  fetch(file, { cache: 'no-store' }).then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.text();
+  }).then(function (text) {
+    var headMatch = text.match(/<head[^>]*>[\s\S]*?<\/head>/i);
+    var bodyMatch = text.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+    if (!headMatch || !bodyMatch) throw new Error('Could not parse page');
+    originalHead = headMatch[0];
+    currentFile = file;
+    // Strip <script> tags: we don't want the page's own JS (scroll animations,
+    // stat counters, the Edit Mode toolbar, autoplaying video embeds, etc.)
+    // executing a second time inside the GrapesJS canvas iframe.
+    var bodyContent = bodyMatch[1].replace(/<script[\s\S]*?<\/script>/gi, '');
+    editor.setComponents(bodyContent);
+    injectCanvasStyles();
+    setStatus('Loaded ' + file + '. Click any element to select, drag to move, use the panels on the right to style.');
+  }).catch(function (e) {
+    setStatus('Error loading ' + file + ': ' + e.message);
+  });
+}
+
+document.getElementById('loadBtn').addEventListener('click', function () {
+  loadPage(document.getElementById('pageSelect').value);
+});
+
+document.getElementById('saveBtn').addEventListener('click', function () {
+  if (!currentFile) { setStatus('Load a page first.'); return; }
+  var bodyHtml = editor.getHtml();
+  var full = '<!DOCTYPE html>\n<html lang="en">\n' + originalHead + '\n<body>\n' + bodyHtml + '\n</body>\n</html>\n';
+
+  setStatus('Saving...');
+  fetch('/__save__', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ file: currentFile, html: full })
+  }).then(function (r) { return r.json(); }).then(function (data) {
+    if (data.ok) setStatus('Saved ' + currentFile + '!');
+    else setStatus('Error: ' + (data.error || 'could not save'));
+  }).catch(function () {
+    setStatus('Error: is edit-server.py running?');
+  });
+});
+
+// Load the page named in ?page=, or Home by default.
+var requestedPage = new URLSearchParams(location.search).get('page') || 'index.html';
+document.getElementById('pageSelect').value = requestedPage;
+loadPage(requestedPage);
+</script>
+</body>
+</html>
