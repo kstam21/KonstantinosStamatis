@@ -59,10 +59,38 @@ function toggleRC(card) {
   if (!isOpen) { d.classList.add('open'); card.classList.add('open-card'); }
 }
 
-function handleSubmit(btn) {
-  btn.textContent = 'Message Sent!';
-  btn.style.background = '#27ae60';
-  setTimeout(function() { btn.textContent = 'Send Message'; btn.style.background = ''; }, 3000);
+var contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = contactForm.querySelector('button[type="submit"]');
+    var originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(response) {
+      if (response.ok) {
+        btn.textContent = 'Message Sent!';
+        btn.style.background = '#27ae60';
+        contactForm.reset();
+      } else {
+        btn.textContent = 'Error — Try Again';
+        btn.style.background = '#dc2626';
+      }
+    }).catch(function() {
+      btn.textContent = 'Error — Try Again';
+      btn.style.background = '#dc2626';
+    }).finally(function() {
+      setTimeout(function() {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3000);
+    });
+  });
 }
 
 /* ---------- EDIT MODE (local only; requires edit-server.py running) ---------- */

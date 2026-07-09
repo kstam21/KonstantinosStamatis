@@ -60,15 +60,15 @@
         </a>
       </div>
       <div class="rev-r">
-        <div class="cf">
+        <form class="cf" id="contactForm" action="https://formspree.io/f/xpqggevv" method="POST">
           <div class="form-row">
-            <input type="text" placeholder="Your Name">
-            <input type="email" placeholder="Email Address">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
           </div>
-          <input type="text" placeholder="Subject">
-          <textarea placeholder="Your Message"></textarea>
-          <button class="btn-gold" onclick="handleSubmit(this)">Send Message</button>
-        </div>
+          <input type="text" name="subject" placeholder="Subject">
+          <textarea name="message" placeholder="Your Message" required></textarea>
+          <button type="submit" class="btn-gold">Send Message</button>
+        </form>
       </div>
     </div>
   </div>
