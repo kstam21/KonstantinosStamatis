@@ -335,6 +335,8 @@ footer p{font-size:.72rem;color:rgba(20,24,31,.4);}
   .hero-inner>div:first-child{min-width:0;}
   .hero-role{white-space:normal;}
   .hero-img-wrap{display:block;max-width:340px;margin:36px auto 0;}
+  .intro-split{grid-template-columns:1fr;}
+  .intro-split>div:last-child{max-width:300px;margin:24px auto 0;}
   .about-grid{grid-template-columns:1fr;}
   .about-photo{max-width:260px;}
   .stats-grid{grid-template-columns:repeat(2,1fr);}
