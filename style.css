@@ -327,6 +327,8 @@ footer p{font-size:.72rem;color:rgba(20,24,31,.4);}
 }
 @media(max-width:960px){
   .hero-inner{grid-template-columns:1fr;}
+  .hero-inner>div:first-child{min-width:0;}
+  .hero-role{white-space:normal;}
   .hero-img-wrap{display:none;}
   .about-grid{grid-template-columns:1fr;}
   .about-photo{max-width:260px;}
