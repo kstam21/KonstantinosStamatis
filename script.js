@@ -162,9 +162,12 @@ function handleSubmit(btn) {
     document.getElementById('editExitBtn').addEventListener('click', function () { stopEditing(true); });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', buildToolbar);
-  } else {
-    buildToolbar();
+  var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (isLocal) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', buildToolbar);
+    } else {
+      buildToolbar();
+    }
   }
 })();
