@@ -332,6 +332,12 @@ footer p{font-size:.72rem;color:rgba(20,24,31,.4);}
 }
 @media(max-width:960px){
   html{font-size:16px;}
+  .sec-hd{margin-bottom:40px;}
+  .sub-hd{margin:56px 0 28px;}
+  .hero-desc,.sec-desc,.about-bio,.hand-hero-content p,.my-contrib>div>p,.thrust-card p,.rc-short,.rc-detail ul li,.pub-box p,.tl-item p,.l-buls li,.award-row p,.congress-box p,.cta-inner p,.video-caption{line-height:1.6;}
+  .about-bio{margin-bottom:10px;}
+  .hero-desc{margin-bottom:26px;}
+  .rc-list{gap:12px;}
   .hero-inner{grid-template-columns:1fr;}
   .hero-inner>div:first-child{min-width:0;}
   .hero-role{white-space:normal;}
@@ -360,8 +366,10 @@ footer p{font-size:.72rem;color:rgba(20,24,31,.4);}
 }
 @media(max-width:700px){
   html{font-size:14.5px;}
-  section{padding:68px 4%;}
-  .page-hero{padding-top:130px;}
+  section{padding:56px 4%;}
+  .page-hero{padding-top:120px;}
+  .sec-hd{margin-bottom:32px;}
+  .sub-hd{margin:44px 0 22px;}
   .cta-inner h2{white-space:normal;}
   .form-row{grid-template-columns:1fr;}
   .skills-grid{grid-template-columns:1fr;}
@@ -374,6 +382,9 @@ footer p{font-size:.72rem;color:rgba(20,24,31,.4);}
   .thrust-grid{grid-template-columns:1fr;}
   .stats-grid.cols-3{grid-template-columns:1fr;}
   .gallery-grid{grid-template-columns:1fr;}
+  .rc{padding:22px 22px;}
+  .my-contrib{padding:26px 24px;}
+  .pub-box,.congress-box,.award-row{padding:24px 22px;}
 }
 @media(max-width:420px){
   html{font-size:13.5px;}
