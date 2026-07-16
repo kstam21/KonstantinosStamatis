@@ -266,7 +266,7 @@ section{padding:96px 5%;}
 
 /* SKILLS */
 #skills-sec{background:var(--bg2);}
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
 .sk-box{background:var(--bg3);border-radius:var(--r);padding:26px;border:1px solid rgba(15,23,42,.08);transition:transform .2s,border-color .2s;}
 .sk-box:hover{transform:translateY(-3px);border-color:var(--border);}
 .sk-icon{font-size:1.8rem;margin-bottom:14px;}
